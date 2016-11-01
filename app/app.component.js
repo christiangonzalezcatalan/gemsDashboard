@@ -13,6 +13,7 @@ var core_2 = require('@angular/core');
 var project_metric_service_1 = require('./project-metric.service');
 var project_service_1 = require('./project.service');
 var project_metric_detail_component_1 = require('./project-metric-detail.component');
+//import { ChartsModule } from '@angular/ng2-charts';
 require('./rxjs-operator');
 var AppComponent = (function () {
     function AppComponent(projectMetricService, projectService) {
@@ -51,7 +52,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_2.Component({
             selector: 'my-app',
-            template: "\n    <h1>{{title}}</h1>\n    <h2>Proyectos</h2>\n    <ul class=\"projects\">\n      <li *ngFor=\"let project of projects\"\n        [class.selected]=\"project === selectedProject\"\n        (click)=\"onSelectProject(project)\">\n        <span class=\"badge\">{{project.id}}</span> {{project.name}}\n      </li>\n    </ul>\n    <h2>M\u00E9tricas</h2>\n    <ul class=\"metrics\">\n      <li *ngFor=\"let metric of metrics\"\n        [class.selected]=\"metric === selectedMetric\"\n        (click)=\"onSelect(metric)\">\n        <span class=\"badge\">{{metric.id}}</span> {{metric.name}}\n      </li>\n    </ul>\n    <project-metric-detail></project-metric-detail>\n",
+            template: "\n    <h1>{{title}}</h1>\n    <h2>Proyectos</h2>\n    <ul class=\"projects\">\n      <li *ngFor=\"let project of projects\"\n        [class.selected]=\"project === selectedProject\"\n        (click)=\"onSelectProject(project)\">\n        <span class=\"badge\">{{project.id}}</span> {{project.name}}\n      </li>\n    </ul>\n    <h2>M\u00E9tricas</h2>\n    <ul class=\"metrics\">\n      <li *ngFor=\"let metric of metrics\"\n        [class.selected]=\"metric === selectedMetric\"\n        (click)=\"onSelect(metric)\">\n        <span class=\"badge\">{{metric.id}}</span> {{metric.name}}\n      </li>\n    </ul>\n    <project-metric-detail></project-metric-detail>\n    <metric-chart></metric-chart>\n",
             providers: [project_metric_service_1.ProjectMetricService, project_service_1.ProjectService]
         }), 
         __metadata('design:paramtypes', [project_metric_service_1.ProjectMetricService, project_service_1.ProjectService])

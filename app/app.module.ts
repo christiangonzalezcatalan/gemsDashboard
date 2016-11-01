@@ -8,16 +8,20 @@ import { InMemoryDataService }  from './in-memory-data.service';
 
 import { AppComponent }  from './app.component';
 import { ProjectMetricDetailComponent } from './project-metric-detail.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { MetricChartComponent } from './metric-chart';
 
 @NgModule({
     imports:      [
         BrowserModule,
+        ChartsModule,
         HttpModule/*,
         InMemoryWebApiModule.forRoot(InMemoryDataService)*/
     ],
     declarations: [
         AppComponent,
-        ProjectMetricDetailComponent
+        ProjectMetricDetailComponent,
+        MetricChartComponent
     ],
     bootstrap:    [
         AppComponent

@@ -5,6 +5,8 @@ import { Project } from './project';
 import { ProjectMetricService } from './project-metric.service';
 import { ProjectService } from './project.service';
 import { ProjectMetricDetailComponent } from './project-metric-detail.component';
+import { MetricChartComponent } from './metric-chart';
+//import { ChartsModule } from '@angular/ng2-charts';
 import './rxjs-operator';
 
 @Component({
@@ -28,6 +30,7 @@ import './rxjs-operator';
       </li>
     </ul>
     <project-metric-detail></project-metric-detail>
+    <metric-chart></metric-chart>
 `,
     providers: [ProjectMetricService, ProjectService]
 })

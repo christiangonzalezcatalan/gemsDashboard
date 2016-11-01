@@ -13,6 +13,8 @@ var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var project_metric_detail_component_1 = require('./project-metric-detail.component');
+var ng2_charts_1 = require('ng2-charts/ng2-charts');
+var metric_chart_1 = require('./metric-chart');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,12 +22,14 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
+                ng2_charts_1.ChartsModule,
                 http_1.HttpModule /*,
                 InMemoryWebApiModule.forRoot(InMemoryDataService)*/
             ],
             declarations: [
                 app_component_1.AppComponent,
-                project_metric_detail_component_1.ProjectMetricDetailComponent
+                project_metric_detail_component_1.ProjectMetricDetailComponent,
+                metric_chart_1.MetricChartComponent
             ],
             bootstrap: [
                 app_component_1.AppComponent
