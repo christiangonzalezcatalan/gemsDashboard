@@ -1,6 +1,8 @@
+import { ViewChild } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ProjectMetric } from './project-metric';
 import { ProjectMetricService } from './project-metric.service';
+import { MetricChartComponent } from './metric-chart';
 import './rxjs-operator';
 
 @Component({
@@ -31,10 +33,13 @@ import './rxjs-operator';
         </div>
       </div>
     </div>
+    <metric-chart></metric-chart>
   `
 })
 export class ProjectMetricDetailComponent {
     //
+    @ViewChild(MetricChartComponent)
+    private metricChartComponent: MetricChartComponent;
     
     //@Input()
     //metric: ProjectMetric;
@@ -45,7 +50,11 @@ export class ProjectMetricDetailComponent {
 
     getProjectMetrics(projectId: string): void {
         this.projectMetricService.getProjectMetrics(projectId).subscribe(
-                     projectMetrics => this.projectMetrics = projectMetrics,
-                     error =>  this.errorMessage = <any>error);
+                    projectMetrics => {
+                      this.projectMetrics = projectMetrics; 
+                      this.metricChartComponent.cargarData(projectMetrics)
+                    },
+                    error =>  this.errorMessage = <any>error);
+        //this.metricChartComponent.cargarData()
     }
 }

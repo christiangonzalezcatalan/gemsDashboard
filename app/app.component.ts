@@ -5,7 +5,7 @@ import { Project } from './project';
 import { ProjectMetricService } from './project-metric.service';
 import { ProjectService } from './project.service';
 import { ProjectMetricDetailComponent } from './project-metric-detail.component';
-import { MetricChartComponent } from './metric-chart';
+//import { MetricChartComponent } from './metric-chart';
 //import { ChartsModule } from '@angular/ng2-charts';
 import './rxjs-operator';
 
@@ -18,20 +18,12 @@ import './rxjs-operator';
       <li *ngFor="let project of projects"
         [class.selected]="project === selectedProject"
         (click)="onSelectProject(project)">
-        <span class="badge">{{project.id}}</span> {{project.name}}
+        {{project.name}}
       </li>
     </ul>
-    <h2>Métricas</h2>
-    <ul class="metrics">
-      <li *ngFor="let metric of metrics"
-        [class.selected]="metric === selectedMetric"
-        (click)="onSelect(metric)">
-        <span class="badge">{{metric.id}}</span> {{metric.name}}
-      </li>
-    </ul>
-    <project-metric-detail></project-metric-detail>
-    <metric-chart></metric-chart>
-`,
+    <project-metric-detail></project-metric-detail>`,
+   /* <metric-chart></metric-chart>
+`,*/
     providers: [ProjectMetricService, ProjectService]
 })
 export class AppComponent {
@@ -44,6 +36,9 @@ export class AppComponent {
 
     @ViewChild(ProjectMetricDetailComponent)
     private detailComponent: ProjectMetricDetailComponent;
+
+    /*@ViewChild(MetricChartComponent)
+    private metricChartComponent: MetricChartComponent;*/
 
     constructor(private projectMetricService: ProjectMetricService, 
                 private projectService: ProjectService) { }
@@ -76,6 +71,7 @@ export class AppComponent {
     onSelectProject(project: Project): void {
         console.log(project);
         this.detailComponent.getProjectMetrics(project.id)
+        //this.metricChartComponent.cargarData()
         this.selectedProject = project;
     }
 }

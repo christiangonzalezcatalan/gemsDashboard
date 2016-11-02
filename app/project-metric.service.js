@@ -27,11 +27,15 @@ var ProjectMetricService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
-    /*private fromJSONArray(array: Array<Object>): ProjectMetric[] {
-        return array.map(obj => new ProjectMetric(obj['id'], obj['name']));
-    }*/
     ProjectMetricService.prototype.extractData = function (res) {
         var body = res.json();
+        body.forEach(function (pm) {
+            pm.details.forEach(function (detail) {
+                detail.fullDate = new Date(Date.parse(detail.date));
+                detail.date = detail.fullDate.getDate();
+                detail.month = detail.fullDate.getMonth();
+            });
+        });
         console.log(body);
         return body;
     };

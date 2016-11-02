@@ -23,12 +23,15 @@ export class ProjectMetricService {
             .catch(this.handleError);
     }
 
-    /*private fromJSONArray(array: Array<Object>): ProjectMetric[] {
-        return array.map(obj => new ProjectMetric(obj['id'], obj['name']));
-    }*/
-
     private extractData(res: Response) {
         let body = res.json();
+        body.forEach((pm) => {
+            pm.details.forEach((detail) => {
+                detail.fullDate = new Date(Date.parse(detail.date));
+                detail.date = detail.fullDate.getDate();
+                detail.month = detail.fullDate.getMonth();
+            });
+        });
         console.log(body);
         return body as ProjectMetric[];
     }
