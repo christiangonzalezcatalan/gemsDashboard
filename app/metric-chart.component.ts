@@ -10,7 +10,7 @@ import { MetricDetail } from './metric-detail';
   template: `
 <div class="row">
   <div class="col-md-6">
-    <canvas baseChart width="400" height="400"
+    <canvas baseChart width="800" height="500"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
@@ -20,7 +20,7 @@ import { MetricDetail } from './metric-detail';
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
   </div>
-  <div class="col-md-6" style="margin-bottom: 10px;">
+  <!--<div class="col-md-6" style="margin-bottom: 10px;">
     <table class="table table-responsive table-condensed">
       <tr>
         <th *ngFor="let label of lineChartLabels">{{label}}</th>
@@ -30,27 +30,44 @@ import { MetricDetail } from './metric-detail';
       </tr>
     </table>
     <button (click)="cargarData()">CLICK</button>
-  </div>
+  </div>-->
 </div>
   `
 })
 export class MetricChartComponent {
   // lineChart
     public lineChartData:Array<any> = [
-        {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Miembro'}/*,
-        {data: [28, 48, 40, 19, 86, 27, 90, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55], label: 'Christian'},
-        {data: [18, 48, 77, 9, 100, 27, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55], label: 'Series C'}*/
+        {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Miembro'}/*,
+        {data: [28, 48, 40, 19, 86, 27, 90, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56], label: 'Christian'},
+        {data: [18, 48, 77, 9, 100, 27, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56], label: 'Series C'}*/
     ];
     public lineChartLabels:Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
     '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-    '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+    '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];//, '31'];
 
     public lineChartOptions:any = {
         animation: false,
-        responsive: true
+        responsive: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    max: 10,
+                    min: 0,
+                    stepSize: 1
+                }
+            }]
+        }
     };
 
     public lineChartColors:Array<any> = [
+        { // light grey
+            backgroundColor: 'rgba(188,199,217,0.2)',
+            borderColor: 'rgba(188,199,217,1)',
+            pointBackgroundColor: 'rgba(188,199,217,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(188,199,217,0.8)'
+        },
         { // grey
             backgroundColor: 'rgba(148,159,177,0.2)',
             borderColor: 'rgba(148,159,177,1)',
@@ -66,14 +83,6 @@ export class MetricChartComponent {
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgba(77,83,96,1)'
-        },
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
         }
     ];
 
@@ -94,38 +103,29 @@ export class MetricChartComponent {
         }
         console.log(days);
 
-        /*pm.details.forEach((detail) => {
-                detail.fullDate = new Date(Date.parse(detail.date));
-                detail.date = detail.fullDate.getDate();
-                detail.month = detail.fullDate.getMonth();
-            });*/
-
-        let _lineChartData:Array<any> = new Array(pmetric.membersSummary.length);
+        let _lineChartData:Array<any> = new Array(3); //new Array(pmetric.membersSummary.length);
         for (let i = 0; i < pmetric.membersSummary.length; i++) {
-            _lineChartData[i] = {data: new Array(days), label: pmetric.membersSummary[i].name};
+            _lineChartData[i] = {data: new Array(days), label: 'Horas trabajadas'};//pmetric.membersSummary[i].name};
+            _lineChartData[i+1] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos'};//pmetric.membersSummary[i].name};
+            _lineChartData[i+2] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos no asignados'};//pmetric.membersSummary[i].name};
             for (let j = 0; j < days; j++) {
-                let detail : MetricDetail = pmetric.details.find((detail, index, obj) =>  { return detail.date == (j + 1)})
-                if(detail != null) {
-                    _lineChartData[i].data[j] = detail.metricData.hours;
+                _lineChartData[i].data[j] = 0;
+                _lineChartData[i+1].data[j] = 0;
+                _lineChartData[i+2].data[j] = 0;
+
+                let details : MetricDetail[] = pmetric.details.filter((detail, index, obj) =>  { return detail.date == (j + 1)})
+                for (let detail of details){
+                    _lineChartData[i].data[j] += detail.metricData.workedHours || 0;
+                    _lineChartData[i+1].data[j] += detail.metricData.otherProjectHours || 0;
+                    _lineChartData[i+2].data[j] += detail.metricData.otherProjectNotPlannedHours || 0;
                 }
-                else {
-                    _lineChartData[i].data[j] = 0;
-                }
+
+                // Para el efecto del gráfico
+                _lineChartData[i+1].data[j] += _lineChartData[i+2].data[j];
+                _lineChartData[i].data[j] += _lineChartData[i+1].data[j];
             }
         }
-        /*for (let i = 0; i < days; i++) {
-            _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-            for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-                _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-            }
-        }*/
-        /*let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-        for (let i = 0; i < this.lineChartData.length; i++) {
-            _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-            for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-                _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-            }
-        }*/
+
         this.lineChartData = _lineChartData;
     }
 

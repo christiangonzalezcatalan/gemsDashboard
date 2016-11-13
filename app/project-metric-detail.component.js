@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var core_2 = require('@angular/core');
 var project_metric_service_1 = require('./project-metric.service');
-var metric_chart_1 = require('./metric-chart');
+var metric_chart_component_1 = require('./metric-chart.component');
 require('./rxjs-operator');
 var ProjectMetricDetailComponent = (function () {
     function ProjectMetricDetailComponent(projectMetricService) {
@@ -26,8 +26,8 @@ var ProjectMetricDetailComponent = (function () {
         //this.metricChartComponent.cargarData()
     };
     __decorate([
-        core_1.ViewChild(metric_chart_1.MetricChartComponent), 
-        __metadata('design:type', metric_chart_1.MetricChartComponent)
+        core_1.ViewChild(metric_chart_component_1.MetricChartComponent), 
+        __metadata('design:type', metric_chart_component_1.MetricChartComponent)
     ], ProjectMetricDetailComponent.prototype, "metricChartComponent", void 0);
     ProjectMetricDetailComponent = __decorate([
         core_2.Component({

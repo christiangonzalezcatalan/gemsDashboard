@@ -20,7 +20,7 @@ var ProjectMetricService = (function () {
         this.http = http;
     }
     ProjectMetricService.prototype.getProjectMetrics = function (projectId) {
-        var projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year=2016&month=9';
+        var projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year=2016&month=10';
         //return this.http.get(this.projectMetricsUrl)
         console.log(projectMetricsUrl);
         return this.http.get(projectMetricsUrl)
@@ -34,6 +34,11 @@ var ProjectMetricService = (function () {
                 detail.fullDate = new Date(Date.parse(detail.date));
                 detail.date = detail.fullDate.getDate();
                 detail.month = detail.fullDate.getMonth();
+            });
+            pm.membersSummary.forEach(function (member) {
+                member.id = member.member.id;
+                member.name = member.member.name;
+                member.email = member.member.email;
             });
         });
         console.log(body);

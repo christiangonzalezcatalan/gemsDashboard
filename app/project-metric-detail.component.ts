@@ -2,7 +2,7 @@ import { ViewChild } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ProjectMetric } from './project-metric';
 import { ProjectMetricService } from './project-metric.service';
-import { MetricChartComponent } from './metric-chart';
+import { MetricChartComponent } from './metric-chart.component';
 import './rxjs-operator';
 
 @Component({

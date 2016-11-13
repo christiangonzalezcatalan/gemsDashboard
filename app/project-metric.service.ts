@@ -14,7 +14,7 @@ export class ProjectMetricService {
     constructor(private http: Http) { }
 
     getProjectMetrics(projectId: string): Observable<ProjectMetric[]> {
-        let projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year=2016&month=9'
+        let projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year=2016&month=10'
         //return this.http.get(this.projectMetricsUrl)
         console.log(projectMetricsUrl)
 
@@ -30,6 +30,11 @@ export class ProjectMetricService {
                 detail.fullDate = new Date(Date.parse(detail.date));
                 detail.date = detail.fullDate.getDate();
                 detail.month = detail.fullDate.getMonth();
+            });
+            pm.membersSummary.forEach((member) => {
+                member.id = member.member.id;
+                member.name = member.member.name;
+                member.email = member.member.email;
             });
         });
         console.log(body);
