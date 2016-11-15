@@ -12,18 +12,23 @@ import './rxjs-operator';
 @Component({
   selector: 'my-app',
   template:  `
-    <h1>{{title}}</h1>
-    <h2>Proyectos</h2>
-    <ul class="projects">
-      <li *ngFor="let project of projects"
-        [class.selected]="project === selectedProject"
-        (click)="onSelectProject(project)">
-        {{project.name}}
-      </li>
-    </ul>
-    <project-metric-detail></project-metric-detail>`,
-   /* <metric-chart></metric-chart>
-`,*/
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Proyectos <span class="sr-only">(current)</span></a></li>
+            <li *ngFor="let project of projects"
+                [class.selected]="project === selectedProject"
+                (click)="onSelectProject(project)">
+                <a href="#">{{project.name}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <project-metric-detail></project-metric-detail>
+        </div>
+      </div>
+    </div>`,
     providers: [ProjectMetricService, ProjectService]
 })
 export class AppComponent {
