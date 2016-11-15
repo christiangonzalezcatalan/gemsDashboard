@@ -25,6 +25,20 @@ import './rxjs-operator';
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <label>Año</label>
+          <select class="form-control" type="number" [(ngModel)]="selectedYear" (ngModelChange)="onYearSelected()">
+            <option *ngFor="let year of years"
+                [value]="year"
+                [class.selected]="year === selectedYear">
+                {{year}}</option>
+          </select>
+          <label>Mes</label>
+          <select class="form-control" type="number" [(ngModel)]="selectedMonth" (ngModelChange)="onMonthSelected()">
+            <option *ngFor="let month of months"
+                [value]="month.num"
+                [selected]="month.num === selectedMonth">
+                {{month.name}}</option>
+          </select>
           <project-metric-detail></project-metric-detail>
         </div>
       </div>
@@ -38,6 +52,23 @@ export class AppComponent {
     selectedProject: Project;
     selectedMetric: ProjectMetric;
     errorMessage: String;
+    selectedMonth: number = 10;
+    selectedYear: number = 2016;
+    months: Array<Object> = [
+      {num: 0, name: "Enero"},
+      {num: 1, name: "Febrero"},
+      {num: 2, name: "Marzo"},
+      {num: 3, name: "Abril"},
+      {num: 4, name: "Mayo"},
+      {num: 5, name: "Junio"},
+      {num: 6, name: "Julio"},
+      {num: 7, name: "Agosto"},
+      {num: 8, name: "Septiembre"},
+      {num: 9, name: "Octubre"},
+      {num: 10, name: "Noviembre"},
+      {num: 11, name: "Diciembre"}
+  ];
+  years: Array<number> = [2016, 2015]
 
     @ViewChild(ProjectMetricDetailComponent)
     private detailComponent: ProjectMetricDetailComponent;
@@ -48,11 +79,11 @@ export class AppComponent {
     constructor(private projectMetricService: ProjectMetricService, 
                 private projectService: ProjectService) { }
 
-    getProjectMetrics(): void {
+    /*getProjectMetrics(): void {
         this.projectMetricService.getProjectMetrics('57cc59368acec62bf2f7d7ed').subscribe(
                      metrics => this.metrics = metrics,
                      error =>  this.errorMessage = <any>error);
-    }
+    }*/
 
     getProjects(): void {
         /*this.projectService.getProjectForMetrics().subscribe(
@@ -65,7 +96,7 @@ export class AppComponent {
     }
 
     ngOnInit(): void {
-        this.getProjectMetrics();
+        //this.getProjectMetrics();
         this.getProjects();
     }
 
@@ -73,9 +104,20 @@ export class AppComponent {
         this.selectedMetric = metric;
     }
 
+    onYearSelected() {
+      console.log(this.selectedYear)
+      this.detailComponent.getProjectMetrics(this.selectedProject.id, this.selectedMonth, this.selectedYear)
+    }
+
+    onMonthSelected() {
+      console.log(this.selectedMonth)
+      this.detailComponent.getProjectMetrics(this.selectedProject.id, this.selectedMonth, this.selectedYear)
+    }
+
     onSelectProject(project: Project): void {
+        console.log(this.selectedProject);
         console.log(project);
-        this.detailComponent.getProjectMetrics(project.id)
+        this.detailComponent.getProjectMetrics(project.id, this.selectedMonth, this.selectedYear)
         //this.metricChartComponent.cargarData()
         this.selectedProject = project;
     }

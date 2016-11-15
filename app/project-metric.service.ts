@@ -13,8 +13,8 @@ export class ProjectMetricService {
 
     constructor(private http: Http) { }
 
-    getProjectMetrics(projectId: string): Observable<ProjectMetric[]> {
-        let projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year=2016&month=10'
+    getProjectMetrics(projectId: string, month: number, year: number): Observable<ProjectMetric[]> {
+        let projectMetricsUrl = 'http://localhost:8080/projectMetrics?projectId=' + projectId + '&name=Horas trabajadas en otros proyectos&year='+ year +'&month=' + month;
         //return this.http.get(this.projectMetricsUrl)
         console.log(projectMetricsUrl)
 

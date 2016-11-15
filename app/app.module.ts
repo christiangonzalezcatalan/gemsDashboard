@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -15,6 +16,7 @@ import { MetricChartComponent } from './metric-chart.component';
     imports:      [
         BrowserModule,
         ChartsModule,
+        FormsModule,
         HttpModule/*,
         InMemoryWebApiModule.forRoot(InMemoryDataService)*/
     ],

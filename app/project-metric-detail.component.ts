@@ -48,8 +48,8 @@ export class ProjectMetricDetailComponent {
 
     constructor(private projectMetricService: ProjectMetricService) { }
 
-    getProjectMetrics(projectId: string): void {
-        this.projectMetricService.getProjectMetrics(projectId).subscribe(
+    getProjectMetrics(projectId: string, month: number, year: number): void {
+        this.projectMetricService.getProjectMetrics(projectId, month, year).subscribe(
                     projectMetrics => {
                       this.projectMetrics = projectMetrics; 
                       this.metricChartComponent.cargarData(projectMetrics)
