@@ -51,13 +51,34 @@ export class MetricChartComponent {
         scales: {
             yAxes: [{
                 ticks: {
-                    max: 10,
+                    max: 20,
                     min: 0,
                     stepSize: 1
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Horas'
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Día del mes'
                 }
             }]
         }
     };
+
+    /*options = {
+  scales: {
+    yAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'probability'
+      }
+    }]
+  }
+}*/
 
     public lineChartColors:Array<any> = [
         {
@@ -104,7 +125,8 @@ export class MetricChartComponent {
         console.log(days);
 
         let _lineChartData:Array<any> = new Array(3); //new Array(pmetric.membersSummary.length);
-        for (let i = 0; i < pmetric.membersSummary.length; i++) {
+        ////for (let i = 0; i < pmetric.membersSummary.length; i++) {
+            let i = 0;
             _lineChartData[i+2] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos no asignados'};//pmetric.membersSummary[i].name};
             _lineChartData[i+1] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos'};//pmetric.membersSummary[i].name};
             _lineChartData[i] = {data: new Array(days), label: 'Horas trabajadas'};//pmetric.membersSummary[i].name};
@@ -122,13 +144,13 @@ export class MetricChartComponent {
                 }
 
                 // Para el efecto del gráfico
-                //_lineChartData[i+1].data[j] += _lineChartData[i+2].data[j];
-                //_lineChartData[i].data[j] += _lineChartData[i+1].data[j];
                 _lineChartData[i+1].data[j] += _lineChartData[i].data[j];
                 _lineChartData[i+2].data[j] += _lineChartData[i+1].data[j];
             }
-        }
+        //}
 
+        console.log(this.lineChartData);
+        console.log(_lineChartData);
         this.lineChartData = _lineChartData;
     }
 

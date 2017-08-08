@@ -4,4 +4,5 @@ export class MemberSummary {
     id: string;
     name: string;
     email: string;
+    metricData: any;
 }

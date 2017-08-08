@@ -13,6 +13,49 @@ body {
   margin: 2em;
 }
 
+.circles {
+  padding: 10px;
+}
+.circle {
+  border: 2px solid;
+  text-align: center;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  font-size: medium;
+  font-weight: bolder;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  margin: 10px;
+}
+
+.circle.horasNoAsignadasOtrosProyectos {
+  border-color: rgb(235,79,112);
+  color: rgb(235,79,112);
+  background-color: rgb(255, 179, 202);
+}
+
+.circle.horasOtrosProyectos {
+  border-color: rgb(34,142,205);
+  color: rgb(34,142,205);
+  background-color: rgb(184, 218, 255);
+}
+
+.circle.horasTrabajadas {
+  border-color: rgb(35,152,152);
+  color: rgb(35,152,152);
+  background-color: rgb(130,255,255);
+}
+
+.circle .hrs {
+  font-size: xx-large;
+}
+
+.circle .txt {
+  height: 66px;
+}
 
 /*
  * Ejemplo dashboard bootstrap

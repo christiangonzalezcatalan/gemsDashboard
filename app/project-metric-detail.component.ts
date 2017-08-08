@@ -3,23 +3,23 @@ import { Component, Input, OnDestroy, OnInit  } from '@angular/core';
 import { ProjectMetric } from './project-metric';
 import { ProjectMetricService } from './project-metric.service';
 import { MetricChartComponent } from './metric-chart.component';
+import { MemberSummary } from './member-summary';
 import './rxjs-operator';
 
 @Component({
     selector: 'project-metric-detail',
     template: `
       <div *ngFor="let projectMetric of projectMetrics">
-        <h2>{{projectMetric.name}} details!</h2>
-        <div><label>id: </label>{{projectMetric.id}}</div>
+        <h3>{{projectMetric.name}}</h3>
+        <!--<div><label>id: </label>{{projectMetric.id}}</div>
         <div>
           <label>name: </label>
           {{projectMetric.name}}
         </div>
         <div>
           <label>month: </label>
-          {{projectMetric.month}}
+          {{projectMetric.month + 1}}
         </div>
-        <div>
           <label>project: </label>
           {{projectMetric.project.name}}
         </div>
@@ -28,9 +28,23 @@ import './rxjs-operator';
           <div *ngFor="let memberSummary of projectMetric.membersSummary">
             <div>
               <label>member name: </label>
-              {{memberSummary.member.name}}
+              {{memberSummary.member.name}}: {{memberSummary.metricData.otherProjectHours}}
             </div>
           </div>
+        </div>-->
+      </div>
+      <div class="circles">
+        <div class="circle horasTrabajadas">
+            <div class="hrs">{{horasTrabajadas}}</div>
+            <div class="txt">Horas asignadas al proyecto trabajadas</div>
+        </div>
+        <div class="circle horasOtrosProyectos">
+            <div class="hrs">{{horasOtrosProyectos}}</div>
+            <div class="txt">Horas trabajadas en otros proyectos asignados</div>
+        </div>
+        <div class="circle horasNoAsignadasOtrosProyectos">
+            <div class="hrs">{{horasOtrosProyectosNoAsignados}}</div>
+            <div class="txt">Horas trabajadas en otros proyectos no asignados</div>
         </div>
       </div>
       <metric-chart></metric-chart>
@@ -45,6 +59,9 @@ export class ProjectMetricDetailComponent implements OnDestroy {
     errorMessage: String; 
     intervalId: number = 0;
     seconds: number = 10;
+    horasTrabajadas: number = 0;
+    horasOtrosProyectos: number = 0;
+    horasOtrosProyectosNoAsignados: number = 0;
 
     constructor(private projectMetricService: ProjectMetricService) { }
     ngOnDestroy() { 
@@ -71,11 +88,26 @@ export class ProjectMetricDetailComponent implements OnDestroy {
         this.start(projectId, month, year);
     }
 
+    private getHours() {  
+        this.horasOtrosProyectosNoAsignados = 0;
+        this.horasOtrosProyectos = 0;
+        this.horasTrabajadas = 0;
+
+        for (let projectMetric of this.projectMetrics) {
+            for (let detail of projectMetric.details) {
+                this.horasOtrosProyectosNoAsignados += detail.metricData.otherProjectNotPlannedHours || 0;
+                this.horasOtrosProyectos += detail.metricData.otherProjectHours || 0;
+                this.horasTrabajadas += detail.metricData.workedHours || 0;
+            }
+        }
+    }
+
     private getMetricsFromBB(projectId: string, month: number, year: number): void {
         this.projectMetricService.getProjectMetrics(projectId, month, year).subscribe(
             projectMetrics => {
                 this.projectMetrics = projectMetrics; 
-                this.metricChartComponent.cargarData(projectMetrics)
+                this.getHours();
+                this.metricChartComponent.cargarData(projectMetrics);
             },
             error =>  this.errorMessage = <any>error);
     }
