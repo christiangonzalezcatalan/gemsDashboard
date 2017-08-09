@@ -11,7 +11,7 @@ import './rxjs-operator';
     template: `
       <div *ngFor="let projectMetric of projectMetrics">
         <h3>{{projectMetric.name}}</h3>
-        <!--<div><label>id: </label>{{projectMetric.id}}</div>
+        <div><label>id: </label>{{projectMetric.id}}</div>
         <div>
           <label>name: </label>
           {{projectMetric.name}}
@@ -20,6 +20,7 @@ import './rxjs-operator';
           <label>month: </label>
           {{projectMetric.month + 1}}
         </div>
+        <div>
           <label>project: </label>
           {{projectMetric.project.name}}
         </div>
@@ -31,7 +32,7 @@ import './rxjs-operator';
               {{memberSummary.member.name}}: {{memberSummary.metricData.otherProjectHours}}
             </div>
           </div>
-        </div>-->
+        </div>
       </div>
       <div class="circles">
         <div class="circle horasTrabajadas">

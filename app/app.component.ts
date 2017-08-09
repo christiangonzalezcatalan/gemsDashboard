@@ -52,8 +52,8 @@ export class AppComponent {
     selectedProject: Project;
     selectedMetric: ProjectMetric;
     errorMessage: String;
-    selectedMonth: number = 10;
-    selectedYear: number = 2016;
+    selectedMonth: number = 7;
+    selectedYear: number = 2017;
     months: Array<Object> = [
       {num: 0, name: "Enero"},
       {num: 1, name: "Febrero"},
@@ -68,7 +68,7 @@ export class AppComponent {
       {num: 10, name: "Noviembre"},
       {num: 11, name: "Diciembre"}
   ];
-  years: Array<number> = [2016, 2015]
+  years: Array<number> = [2017, 2016, 2015]
 
     @ViewChild(ProjectMetricDetailComponent)
     private detailComponent: ProjectMetricDetailComponent;
