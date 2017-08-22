@@ -39,6 +39,10 @@ import './rxjs-operator';
             <div class="hrs">{{horasTrabajadas}}</div>
             <div class="txt">Horas asignadas al proyecto trabajadas</div>
         </div>
+        <div class="circle horasNoAsignadasTrabajadas">
+            <div class="hrs">{{horasTrabajadasNoAsignadas}}</div>
+            <div class="txt">Horas no asignadas al proyecto trabajadas</div>
+        </div>
         <div class="circle horasOtrosProyectos">
             <div class="hrs">{{horasOtrosProyectos}}</div>
             <div class="txt">Horas trabajadas en otros proyectos asignados</div>
@@ -61,6 +65,7 @@ export class ProjectMetricDetailComponent implements OnDestroy {
     intervalId: number = 0;
     seconds: number = 10;
     horasTrabajadas: number = 0;
+    horasTrabajadasNoAsignadas: number = 0;
     horasOtrosProyectos: number = 0;
     horasOtrosProyectosNoAsignados: number = 0;
 
@@ -93,12 +98,14 @@ export class ProjectMetricDetailComponent implements OnDestroy {
         this.horasOtrosProyectosNoAsignados = 0;
         this.horasOtrosProyectos = 0;
         this.horasTrabajadas = 0;
+        this.horasTrabajadasNoAsignadas = 0;
 
         for (let projectMetric of this.projectMetrics) {
             for (let detail of projectMetric.details) {
                 this.horasOtrosProyectosNoAsignados += detail.metricData.otherProjectNotPlannedHours || 0;
                 this.horasOtrosProyectos += detail.metricData.otherProjectHours || 0;
                 this.horasTrabajadas += detail.metricData.workedHours || 0;
+                this.horasTrabajadasNoAsignadas += detail.metricData.notPlannedWorkedHours || 0;
             }
         }
     }

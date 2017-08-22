@@ -49,6 +49,12 @@ body {
   background-color: rgb(130,255,255);
 }
 
+.circle.horasNoAsignadasTrabajadas {
+  border-color: rgb(255,122,13);
+  color: rgb(255,122,13);
+  background-color: rgb(255,222,200);
+}
+
 .circle .hrs {
   font-size: xx-large;
 }

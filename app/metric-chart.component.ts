@@ -90,6 +90,14 @@ export class MetricChartComponent {
             pointHoverBorderColor: 'rgba(75,192,192,1)'
         },
         {
+            backgroundColor: 'rgba(255,180,100,1)',
+            borderColor: 'rgba(255,122,13,1)',
+            pointBackgroundColor: 'rgba(255,180,100,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,180,100,1)'
+        },
+        {
             backgroundColor: 'rgba(54,162,235,1)',
             borderColor: 'rgba(34,142,215,1)',
             pointBackgroundColor: 'rgba(54,162,235,1)',
@@ -124,28 +132,32 @@ export class MetricChartComponent {
         }
         console.log(days);
 
-        let _lineChartData:Array<any> = new Array(3); //new Array(pmetric.membersSummary.length);
+        let _lineChartData:Array<any> = new Array(4); //new Array(pmetric.membersSummary.length);
         ////for (let i = 0; i < pmetric.membersSummary.length; i++) {
             let i = 0;
-            _lineChartData[i+2] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos no asignados'};//pmetric.membersSummary[i].name};
-            _lineChartData[i+1] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos'};//pmetric.membersSummary[i].name};
+            _lineChartData[i+3] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos no asignados'};//pmetric.membersSummary[i].name};
+            _lineChartData[i+2] = {data: new Array(days), label: 'Horas trabajadas en otros proyectos'};//pmetric.membersSummary[i].name};
+            _lineChartData[i+1] = {data: new Array(days), label: 'Horas trabajadas no asignadas'};//pmetric.membersSummary[i].name};
             _lineChartData[i] = {data: new Array(days), label: 'Horas trabajadas'};//pmetric.membersSummary[i].name};
 
             for (let j = 0; j < days; j++) {
                 _lineChartData[i].data[j] = 0;
                 _lineChartData[i+1].data[j] = 0;
                 _lineChartData[i+2].data[j] = 0;
+                _lineChartData[i+3].data[j] = 0;
 
                 let details : MetricDetail[] = pmetric.details.filter((detail, index, obj) =>  { return detail.date == (j + 1)})
                 for (let detail of details) {
-                    _lineChartData[i+2].data[j] += detail.metricData.otherProjectNotPlannedHours || 0;
-                    _lineChartData[i+1].data[j] += detail.metricData.otherProjectHours || 0;
+                    _lineChartData[i+3].data[j] += detail.metricData.otherProjectNotPlannedHours || 0;
+                    _lineChartData[i+2].data[j] += detail.metricData.otherProjectHours || 0;
+                    _lineChartData[i+1].data[j] += detail.metricData.notPlannedWorkedHours || 0;
                     _lineChartData[i].data[j] += detail.metricData.workedHours || 0;
                 }
 
                 // Para el efecto del gráfico
                 _lineChartData[i+1].data[j] += _lineChartData[i].data[j];
                 _lineChartData[i+2].data[j] += _lineChartData[i+1].data[j];
+                _lineChartData[i+3].data[j] += _lineChartData[i+2].data[j];
             }
         //}
 
