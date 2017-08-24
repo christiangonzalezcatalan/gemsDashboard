@@ -11,7 +11,7 @@ import './rxjs-operator';
     template: `
       <div *ngFor="let projectMetric of projectMetrics">
         <h3>{{projectMetric.name}}</h3>
-        <div><label>id: </label>{{projectMetric.id}}</div>
+        <!-- <div><label>id: </label>{{projectMetric.id}}</div>
         <div>
           <label>name: </label>
           {{projectMetric.name}}
@@ -32,27 +32,52 @@ import './rxjs-operator';
               {{memberSummary.member.name}}: {{memberSummary.metricData.otherProjectHours}}
             </div>
           </div>
+        </div> -->
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3 text-center"><h3>Horas asignadas</h3></div>
+            <div class="col-md-3 text-center"><h3>Horas no asignadas</h3></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><h3>Este proyecto</h3></div>
+            <div class="col-md-3 text-center">
+                <div class="circle horasTrabajadas">
+                    <div class="hrs">{{horasTrabajadas}}</div>
+                    <div class="txt">Horas asignadas al proyecto trabajadas</div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="circle horasNoAsignadasTrabajadas">
+                    <div class="hrs">{{horasTrabajadasNoAsignadas}}</div>
+                    <div class="txt">Horas no asignadas al proyecto trabajadas</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><h3>Otros proyectos</h3></div>
+            <div class="col-md-3 text-center">
+                <div class="circle horasOtrosProyectos">
+                    <div class="hrs">{{horasOtrosProyectos}}</div>
+                    <div class="txt">Horas trabajadas en otros proyectos asignados</div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="circle horasNoAsignadasOtrosProyectos">
+                    <div class="hrs">{{horasOtrosProyectosNoAsignados}}</div>
+                    <div class="txt">Horas trabajadas en otros proyectos no asignados</div>
+                </div>
+            </div>
+        </div>
+        <div cass="row">
+            <div class="col-md-12 text-center">
+                <br />
+                <br />
+                <metric-chart></metric-chart>
+            </div>
         </div>
       </div>
-      <div class="circles">
-        <div class="circle horasTrabajadas">
-            <div class="hrs">{{horasTrabajadas}}</div>
-            <div class="txt">Horas asignadas al proyecto trabajadas</div>
-        </div>
-        <div class="circle horasNoAsignadasTrabajadas">
-            <div class="hrs">{{horasTrabajadasNoAsignadas}}</div>
-            <div class="txt">Horas no asignadas al proyecto trabajadas</div>
-        </div>
-        <div class="circle horasOtrosProyectos">
-            <div class="hrs">{{horasOtrosProyectos}}</div>
-            <div class="txt">Horas trabajadas en otros proyectos asignados</div>
-        </div>
-        <div class="circle horasNoAsignadasOtrosProyectos">
-            <div class="hrs">{{horasOtrosProyectosNoAsignados}}</div>
-            <div class="txt">Horas trabajadas en otros proyectos no asignados</div>
-        </div>
-      </div>
-      <metric-chart></metric-chart>
     `
 })
 

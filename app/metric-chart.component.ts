@@ -46,6 +46,12 @@ export class MetricChartComponent {
     '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];//, '31'];
 
     public lineChartOptions:any = {
+        title: {
+            display: true,
+            fontSize: 16,
+            padding: 20,
+            text: 'Gráfico de horas trabajadas'
+        },
         animation: false,
         responsive: false,
         scales: {
